@@ -16,4 +16,4 @@ where users.age > 24 and ratings.rating = 5;
 select title from movies where release_date = (select release_date from movies group by release_date order by count(*) desc limit 1);
 
 -- Find the total number of movies in each genre; list the results in ascending numeric order.
-select * from movies inner join genres_movies on genres_movies.movie_id = movies.id inner join genres on genres.id = genres_movies.genre_id group by genres.name;
+select genres.name, count(movies.id) as total_movies from movies inner join genres_movies on genres_movies.movie_id = movies.id  inner join genres on genres.id = genres_movies.genre_id  group by genres.name order by total_movies asc;
