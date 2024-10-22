@@ -27,15 +27,16 @@ WHERE genres.name = 'Sci-Fi'
   AND ratings.rating = 5;
 
 -- List the unique titles of each of the movies released on the most popular release day.
-SELECT title 
-FROM movies 
-WHERE release_date = (
-    SELECT release_date 
+set @lol = (SELECT release_date 
     FROM movies 
     GROUP BY release_date 
     ORDER BY COUNT(*) DESC 
     LIMIT 1
-);
+    );
+
+SELECT title 
+FROM movies 
+WHERE release_date = @lol
 
 -- Find the total number of movies in each genre; list the results in ascending numeric order.
 SELECT genres.name, COUNT(movies.id) AS total_movies 
